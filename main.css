@@ -1,0 +1,41 @@
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+#main {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+}
+
+.post-item {
+  width: 100%;
+  padding: 5px;
+  border-width: 1px;
+  border-style: groove;
+  border: gray;
+}
+
+.col {
+  height: 98%;
+  display: flex;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#catalog {
+  flex-direction: column;
+  width: 38%;
+}
+
+#article {
+  width: 60%;
+}
+
+webview {
+  width: 100%;
+}

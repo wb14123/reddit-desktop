@@ -20,7 +20,7 @@ function createWindow () {
 
   mainWindow = new BrowserWindow()
   getToken(mainWindow, function (err, token) {
-    mainWindow.loadURL('view://index.html')
+    mainWindow.loadURL(`file://${__dirname}/index.html`)
     mainWindow.webContents.on('did-finish-load', () => {
       mainWindow.webContents.send('reddit-token', token)
     })

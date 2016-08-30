@@ -3,24 +3,66 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
   </head>
   <body>
-    "abcdefg"
-    <div id="subs"></div>
-    <div id="catalog"></div>
-    <div id="article">
-      <!-- <webview id="web" src="http://www.reddit.com" style="display:inline-flex; width:640px; height:480px"></webview> -->
-    </div>
-    <div id="comments">
+    <div id="main">
+      <!--<div id="subs" class="col">
+        Subs
+      </div>-->
+      <div id="catalog" class="col">
+        <div class="post-item" v-for="post in posts">
+          <div class="post-title">{{ post.title }}</div>
+          <div class="post-score">{{ post.score }}</div>
+          <button v-on:click="openPost($index)">View</button>
+        </div>
+      </div>
+      <div id="article" class="col">
+        <webview id="web" src="http://www.reddit.com"></webview>
+      </div>
+      <!--
+      <div id="comments" class="col">
+        Comments
+      </div>
+      -->
     </div>
 
 
     <script>
+
+      const snoowrap = require('snoowrap');
+      const webview = document.getElementById("web")
+
+      var v = new Vue({
+        el: '#main',
+        data: {
+          posts: []
+        },
+        methods: {
+          openPost: function (index) {
+            webview.loadURL(this.posts[index].url)
+          }
+        }
+      })
+
+      function renderList(r) {
+        r.get_hot({limit: 20}).then(posts => v.$set('posts', posts))
+      }
+
       const {ipcRenderer} = require('electron')
       ipcRenderer.on('reddit-token', (event, token) => {
         console.log(token)
+
+        const r = new snoowrap({
+          'user_agent': 'Reddit Desktop',
+          'access_token': token
+        })
+        r.get_me().then(console.log)
+
+        renderList(r)
       })
-      console.log("started")
+
     </script>
   </body>
 
