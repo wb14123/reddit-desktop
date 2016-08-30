@@ -1,0 +1,15 @@
+{
+  "name": "reddit-app",
+  "version": "1.0.0",
+  "description": "Desktop app for REddit",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Bin Wang",
+  "devDependencies": {
+    "electron-prebuilt": "^1.2.0",
+    "snoowrap": "*",
+    "request": "*"
+  }
+}

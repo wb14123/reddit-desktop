@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+  </head>
+  <body>
+    "abcdefg"
+    <div id="subs"></div>
+    <div id="catalog"></div>
+    <div id="article">
+      <!-- <webview id="web" src="http://www.reddit.com" style="display:inline-flex; width:640px; height:480px"></webview> -->
+    </div>
+    <div id="comments">
+    </div>
+
+
+    <script>
+      const {ipcRenderer} = require('electron')
+      ipcRenderer.on('reddit-token', (event, token) => {
+        console.log(token)
+      })
+      console.log("started")
+    </script>
+  </body>
+
+</html>
