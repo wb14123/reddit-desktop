@@ -1,5 +1,5 @@
 {
-  "name": "reddit-app",
+  "name": "reddit-desktop",
   "version": "1.0.0",
   "description": "Desktop app for REddit",
   "main": "main.js",
