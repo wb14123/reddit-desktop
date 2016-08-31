@@ -5,6 +5,11 @@ html, body {
   overflow-y: hidden;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 #main {
   display: flex;
   flex-direction: row;
@@ -13,11 +18,9 @@ html, body {
 }
 
 .post-item {
-  width: 100%;
-  padding: 5px;
-  border-width: 1px;
-  border-style: groove;
-  border: gray;
+  padding: 10px;
+  margin: 10px;
+  background-color: white;
 }
 
 .col {
@@ -30,6 +33,7 @@ html, body {
 #catalog {
   flex-direction: column;
   width: 38%;
+  background-color: rgb(234, 234, 234);
 }
 
 #article {
@@ -38,4 +42,21 @@ html, body {
 
 webview {
   width: 100%;
+}
+
+.post-title {
+  font-size: 24px;
+}
+
+.post-url {
+  color: gray;
+}
+
+.post-buttom {
+  display: flex;
+  flex-direction: row;
+}
+
+.post-item * {
+  margin: 4px;
 }
