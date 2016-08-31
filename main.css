@@ -3,6 +3,7 @@ html, body {
   height: 100%;
   overflow-x: hidden;
   overflow-y: hidden;
+  background-color: rgb(220, 220, 220);
 }
 
 a {
@@ -18,9 +19,11 @@ a {
 }
 
 .post-item {
-  padding: 10px;
-  margin: 10px;
+  padding: 8px;
   background-color: white;
+  border-radius: 2px;
+  margin: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .col {
@@ -28,12 +31,13 @@ a {
   display: flex;
   overflow-y: auto;
   overflow-x: hidden;
+  margin: 5px;
 }
 
 #catalog {
   flex-direction: column;
+  padding: 5px;
   width: 38%;
-  background-color: rgb(234, 234, 234);
 }
 
 #article {
@@ -44,12 +48,22 @@ webview {
   width: 100%;
 }
 
+.webview-hidden {
+  flex: 0 1;
+  width: 0px;
+  height: 0px;
+}
+
 .post-title {
   font-size: 24px;
+  border-bottom-style: groove;
+  border-bottom-width: 0.5px;
+  padding-bottom: 20px;
 }
 
 .post-url {
   color: gray;
+  padding-top: 20px;
 }
 
 .post-buttom {
@@ -57,6 +71,16 @@ webview {
   flex-direction: row;
 }
 
+.post-buttom * {
+  display: flex;
+  flex-direction: row;
+  font-size: 20px;
+  color: gray;
+}
+
 .post-item * {
-  margin: 4px;
+  margin: 8px;
+}
+
+#catalog .selected {
 }
