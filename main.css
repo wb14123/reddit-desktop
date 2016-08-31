@@ -37,11 +37,17 @@ a {
 #catalog {
   flex-direction: column;
   padding: 5px;
-  width: 38%;
+  width: 26%;
 }
 
 #article {
-  width: 60%;
+  width: 40%;
+}
+
+#comments {
+  width: 32%;
+  display: flex;
+  flex-direction: column;
 }
 
 webview {
@@ -83,4 +89,16 @@ webview {
 }
 
 #catalog .selected {
+}
+
+.comment-item {
+  padding: 8px;
+  background-color: white;
+  border-radius: 2px;
+  margin: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.comment-body {
+  font-size: 18px;
 }
