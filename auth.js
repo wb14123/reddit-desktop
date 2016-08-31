@@ -3,7 +3,7 @@ request = require('request')
 
 const clientId = 'YKa6s8nWTInbhQ'
 const redirectUrl = 'view://reddit_redirect.html'
-const scope = 'identity,read,subscribe,mysubreddits'
+const scope = 'identity,read,subscribe,mysubreddits,vote,submit,save'
 const baseUrl = 'https://www.reddit.com/api/v1'
 
 

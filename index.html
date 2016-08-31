@@ -13,23 +13,23 @@
         Subs
       </div>-->
       <div id="catalog" class="col">
-        <div class="post-item" v-for="post in posts" v-bind:class="{'selected':$index==selected_index}" href="#" v-on:click="openPost($index)">
+        <div class="post-item" v-for="post in posts" v-bind:class="{'selected':$index==selected_index}">
           <div class="post-subscribe-name">
             /r/{{ post.subreddit.display_name }}
           </div>
-          <div class="post-title">
+          <a class="post-title" href="#" v-on:click="openPost($index)">
             {{ post.title }}
-          </div>
+          </a>
           <div class="post-url">
             From: {{ post.url }}
           </div>
           <div class="post-author">
-            Submmited by <span class="author-name">{{ post.author.name }}</span> at {{new Date(post.created_utc * 1000).toLocaleString()}}
+            <!-- Submmited by <span class="author-name">{{ post.author.name }}</span> at {{new Date(post.created_utc * 1000).toLocaleString()}} -->
           </div>
           <div class="post-buttom">
             <div class="post-ops">
-              <span class="fa fa-thumbs-up"></span>
-              <span class="fa fa-thumbs-down"></span>
+              <a class="fa fa-thumbs-up" v-bind:class="{'done':post.likes}" href="#" v-on:click="upvote($index)"></a>
+              <span class="fa fa-thumbs-down" v-bind:class="{'done':post.likes===false}"></span>
               <span class="fa fa-bookmark"></span>
               <span class="fa fa-trash"></span>
             </div>
@@ -67,6 +67,8 @@
 
       const snoowrap = require('snoowrap');
       const webview = document.getElementById("web")
+      var r = null
+      var posts = []
 
       var v = new Vue({
         el: '#main',
@@ -85,19 +87,46 @@
               return
             }
             this.hidePost = false
+            webview.loadURL('loading.html')
             webview.loadURL(this.posts[index].url)
             this.selected_index = index
             const self = this
-            this.posts[index].expand_replies({limit: 30, depth: 1}).then(comments => {
-              self.comments = comments.comments})
+            posts[index].expand_replies({limit: 30, depth: 1}).then(comments => {
+              return comments.comments.map(comment => {
+                  return {
+                    body_html: comment.body_html,
+                    author: {name: comment.author.name},
+                    ups: comment.ups
+                  }
+              })
+            }).then(comments => {self.comments = comments})
+          },
+          upvote: function (index) {
+            if (this.posts[index].likes) {
+              posts[index].unvote()
+              this.posts[index].likes = null
+            } else {
+              posts[index].upvote()
+              this.posts[index].likes = true
+            }
           }
         }
       })
 
-      var r = null
 
       function renderList(r) {
-        r.get_hot({limit: 20}).then(posts => v.$set('posts', posts))
+        r.get_hot({limit: 20}).then(p => posts = p).map(post => {
+          return {
+            title: post.title,
+            url: post.url,
+            author: {name: post.author.name},
+            subreddit: {display_name: post.subreddit.display_name},
+            created_utc: post.created_utc,
+            num_comments: post.num_comments,
+            score: post.score,
+            likes: post.likes
+          }
+        }).then(posts => v.$set('posts', posts))
       }
 
       const {ipcRenderer} = require('electron')

@@ -103,3 +103,7 @@ webview {
 .comment-body {
   font-size: 18px;
 }
+
+.done {
+  color: rgb(236, 190, 3);
+}
