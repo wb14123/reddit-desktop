@@ -89,6 +89,7 @@ webview {
 }
 
 #catalog .selected {
+  background-color: rgb(0, 206, 0);
 }
 
 .comment-item {
