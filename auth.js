@@ -31,7 +31,8 @@ function requestToken(code, cb) {
 }
 
 function getToken(win, cb) {
-  const authUrl = `${baseUrl}/authorize?client_id=${clientId}&response_type=code&state=RANDOM_STRI}&redirect_uri=${redirectUrl}&scope=${scope}`
+  const authUrl = `${baseUrl}/authorize?client_id=${clientId}&response_type=code&state=RANDOM_STRI&redirect_uri=${redirectUrl}&scope=${scope}`
+  console.log(authUrl)
   win.loadURL(authUrl)
 
   win.webContents.on('did-get-redirect-request', (event, oldUrl, newUrl, isMainFrame,

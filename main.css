@@ -15,7 +15,6 @@ a {
   display: flex;
   flex-direction: row;
   height: 100%;
-  width: 100%;
 }
 
 .post-item {
@@ -43,8 +42,8 @@ a {
   width: 40%;
 }
 
-#comments {
-  width: 32%;
+.comments {
+  width: 33%;
   display: flex;
   flex-direction: column;
 }
@@ -90,7 +89,7 @@ webview {
   margin: 8px;
 }
 
-#catalog .selected {
+.selected {
   background-color: rgb(212, 255, 212);
 }
 

@@ -12,37 +12,63 @@ webview.addEventListener('dom-ready', () => {
 
 var r = null
 var posts = []
+var commentCols = []
 
 var v = new Vue({
   el: '#main',
   data: {
     posts: [],
     hidePost: true,
-    comments: [],
-    selected_index: -1
+		commentCols: [],
+    postSelectIdx: -1,
+    commentSelectIdx: [],
+  },
+  computed: {
+    mainStyle: function () {
+      const width = Math.max(67 + this.commentCols.length * 33, 100)
+      return {
+        'width': `${width}%`,
+        'margin-left': `${100-width}%`
+      }
+    },
   },
   methods: {
+    appendComments: function (comments) {
+      commentCols.push(comments)
+      const renderedComments = comments.map(comment => {
+          return {
+            body_html: comment.body_html,
+            author: {name: comment.author.name},
+            ups: comment.ups
+          }
+      })
+      this.commentCols.push(renderedComments)
+    },
     openPost: function (index) {
       this.comments = []
-      if (this.selected_index == index) {
+      if (index == this.postSelectIdx) {
         this.hidePost = true
-        this.selected_index = -1
+        this.commentCols = []
+        commentCols = []
+        this.postSelectIdx = -1
         return
       }
       this.hidePost = false
       webview.loadURL('view://loading.html')
       webview.loadURL(this.posts[index].url)
-      this.selected_index = index
-      const self = this
-      posts[index].expand_replies({limit: 30, depth: 1}).then(comments => {
-        return comments.comments.map(comment => {
-            return {
-              body_html: comment.body_html,
-              author: {name: comment.author.name},
-              ups: comment.ups
-            }
-        })
-      }).then(comments => {self.comments = comments})
+      posts[index].expand_replies({limit: 20, depth: 1}).then(x => this.appendComments(x.comments))
+      this.postSelectIdx = index
+    },
+    openComment: function (col, index) {
+      this.commentCols = this.commentCols.slice(0, col+1)
+      commentCols = commentCols.slice(0, col+1)
+      if (index == this.commentSelectIdx[col]) {
+        this.commentCols[col][index].selected = false
+        this.commentSelectIdx[col] = -1
+      } else {
+        this.appendComments(commentCols[col][index].replies)
+        this.commentSelectIdx[col] = index
+      }
     },
     upvote: function (index) {
       if (this.posts[index].likes) {
@@ -84,3 +110,8 @@ ipcRenderer.on('reddit-token', (event, token) => {
 
   renderList(r)
 })
+
+module.exports.commentCols = commentCols
+module.exports.posts = posts
+module.exports.v = v
+module.exports.r = r

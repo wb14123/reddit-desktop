@@ -8,12 +8,12 @@
     <script src="https://use.fontawesome.com/ee996d3f32.js"></script>
   </head>
   <body>
-    <div id="main">
+    <div id="main" v-bind:style="mainStyle">
       <!--<div id="subs" class="col">
         Subs
       </div>-->
       <div id="catalog" class="col">
-        <div class="post-item" v-for="post in posts" v-bind:class="{'selected':$index==selected_index}">
+        <div class="post-item" v-for="post in posts" v-bind:class="{'selected':$index==postSelectIdx}">
           <div class="post-main">
             <div class="post-subscribe-name">
               /r/{{ post.subreddit.display_name }}
@@ -47,9 +47,9 @@
       <div id="article" class="col" v-bind:class="{'webview-hidden':hidePost}">
         <webview id="web" src="loading.html"></webview>
       </div>
-      <div id="comments" class="col">
+      <div class="col comments" v-for="(col, comments) in commentCols">
         <div class="comment-item" v-for="comment in comments">
-          <div class="comment-body"> {{{comment.body_html}}} </div>
+          <div class="comment-body {{ commentSelectIdx[col]==$index?'selected':'' }}" v-on:click="openComment(col, $index)"> {{{comment.body_html}}} </div>
           <div class="post-author">
             Submitted by {{comment.author.name}} at {{new Date(post.created_utc * 1000).toLocaleString()}}
           </div>
@@ -68,7 +68,7 @@
   </body>
 
   <script>
-    require('./renderer.js')
+    var {commentCols, posts, v, r} = require('./renderer.js')
   </script>
 
 </html>
