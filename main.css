@@ -19,7 +19,6 @@ a {
 }
 
 .post-item {
-  padding: 8px;
   background-color: white;
   border-radius: 2px;
   margin: 5px;
@@ -62,14 +61,17 @@ webview {
 
 .post-title {
   font-size: 24px;
-  border-bottom-style: groove;
-  border-bottom-width: 0.5px;
-  padding-bottom: 20px;
+}
+
+.post-annotation {
+  border-top-style: groove;
+  border-top-width: 0.5px;
+  padding-top: 20px;
+  width: 100%;
 }
 
 .post-url {
   color: gray;
-  padding-top: 20px;
 }
 
 .post-buttom {
@@ -106,4 +108,9 @@ webview {
 
 .done {
   color: rgb(236, 190, 3);
+}
+
+.post-main {
+  padding-bottom: 20px;
+  width: 100%;
 }

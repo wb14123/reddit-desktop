@@ -14,28 +14,32 @@
       </div>-->
       <div id="catalog" class="col">
         <div class="post-item" v-for="post in posts" v-bind:class="{'selected':$index==selected_index}">
-          <div class="post-subscribe-name">
-            /r/{{ post.subreddit.display_name }}
-          </div>
-          <a class="post-title" href="#" v-on:click="openPost($index)">
-            {{ post.title }}
-          </a>
-          <div class="post-url">
-            From: {{ post.url }}
-          </div>
-          <div class="post-author">
-            <!-- Submmited by <span class="author-name">{{ post.author.name }}</span> at {{new Date(post.created_utc * 1000).toLocaleString()}} -->
-          </div>
-          <div class="post-buttom">
-            <div class="post-ops">
-              <a class="fa fa-thumbs-up" v-bind:class="{'done':post.likes}" href="#" v-on:click="upvote($index)"></a>
-              <span class="fa fa-thumbs-down" v-bind:class="{'done':post.likes===false}"></span>
-              <span class="fa fa-bookmark"></span>
-              <span class="fa fa-trash"></span>
+          <div class="post-main">
+            <div class="post-subscribe-name">
+              /r/{{ post.subreddit.display_name }}
             </div>
-            <div class="post-stats">
-              <span class="fa fa-comment"></span>{{ post.num_comments }}
-              <span class="fa fa-star"></span>{{ post.score }}
+            <a class="post-title" href="#" v-on:click="openPost($index)">
+              {{ post.title }}
+            </a>
+          </div>
+          <div class="post-annotation">
+            <div class="post-url">
+              From: {{ post.url }}
+            </div>
+            <div class="post-author">
+              <!-- Submmited by <span class="author-name">{{ post.author.name }}</span> at {{new Date(post.created_utc * 1000).toLocaleString()}} -->
+            </div>
+            <div class="post-buttom">
+              <div class="post-ops">
+                <a class="fa fa-thumbs-up" v-bind:class="{'done':post.likes}" href="#" v-on:click="upvote($index)"></a>
+                <span class="fa fa-thumbs-down" v-bind:class="{'done':post.likes===false}"></span>
+                <span class="fa fa-bookmark"></span>
+                <span class="fa fa-trash"></span>
+              </div>
+              <div class="post-stats">
+                <span class="fa fa-comment"></span>{{ post.num_comments }}
+                <span class="fa fa-star"></span>{{ post.score }}
+              </div>
             </div>
           </div>
         </div>
@@ -68,11 +72,13 @@
       const snoowrap = require('snoowrap');
       const webview = document.getElementById("web")
 
+      /*
       webview.addEventListener('dom-ready', () => {
         webview.getWebContents().session.setProxy({
           pacScript: 'file:///home/wangbin/proxy.pac'
         }, () => {})
       })
+      */
 
       var r = null
       var posts = []
@@ -94,7 +100,7 @@
               return
             }
             this.hidePost = false
-            webview.loadURL('loading.html')
+            webview.loadURL('view://loading.html')
             webview.loadURL(this.posts[index].url)
             this.selected_index = index
             const self = this
