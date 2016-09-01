@@ -67,6 +67,13 @@
 
       const snoowrap = require('snoowrap');
       const webview = document.getElementById("web")
+
+      webview.addEventListener('dom-ready', () => {
+        webview.getWebContents().session.setProxy({
+          pacScript: 'file:///home/wangbin/proxy.pac'
+        }, () => {})
+      })
+
       var r = null
       var posts = []
 
