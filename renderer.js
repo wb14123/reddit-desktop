@@ -45,11 +45,12 @@ var v = new Vue({
       this.commentCols.push(renderedComments)
     },
     openPost: function (index) {
-      this.comments = []
+      this.commentCols = []
+      commentCols = []
+      this.commentSelectIdx = []
       if (index == this.postSelectIdx) {
         this.hidePost = true
         this.commentCols = []
-        commentCols = []
         this.postSelectIdx = -1
         return
       }
@@ -62,6 +63,7 @@ var v = new Vue({
     openComment: function (col, index) {
       this.commentCols = this.commentCols.slice(0, col+1)
       commentCols = commentCols.slice(0, col+1)
+      this.commentSelectIdx = this.commentSelectIdx.slice(0, col+1)
       if (index == this.commentSelectIdx[col]) {
         this.commentCols[col][index].selected = false
         this.commentSelectIdx[col] = -1
