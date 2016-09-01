@@ -43,6 +43,9 @@
             </div>
           </div>
         </div>
+        <a class="post-item" v-on:click="loadMorePost()" href="#">
+          <div class="post-title"> Load More </div>
+        </a>
       </div>
       <div id="article" class="col" v-bind:class="{'webview-hidden':hidePost}">
         <webview id="web" src="loading.html"></webview>

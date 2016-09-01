@@ -60,6 +60,9 @@ var v = new Vue({
       posts[index].expand_replies({limit: 20, depth: 1}).then(x => this.appendComments(x.comments))
       this.postSelectIdx = index
     },
+    loadMorePost: function () {
+      posts.fetch_more({amount: 20}).then(p => posts = p).map(renderPost).then(posts => this.posts = posts)
+    },
     openComment: function (col, index) {
       this.commentCols = this.commentCols.slice(0, col+1)
       commentCols = commentCols.slice(0, col+1)
@@ -85,19 +88,21 @@ var v = new Vue({
 })
 
 
+function renderPost(post) {
+  return {
+    title: post.title,
+    url: post.url,
+    author: {name: post.author.name},
+    subreddit: {display_name: post.subreddit.display_name},
+    created_utc: post.created_utc,
+    num_comments: post.num_comments,
+    score: post.score,
+    likes: post.likes
+  }
+}
+
 function renderList(r) {
-  r.get_hot({limit: 20}).then(p => posts = p).map(post => {
-    return {
-      title: post.title,
-      url: post.url,
-      author: {name: post.author.name},
-      subreddit: {display_name: post.subreddit.display_name},
-      created_utc: post.created_utc,
-      num_comments: post.num_comments,
-      score: post.score,
-      likes: post.likes
-    }
-  }).then(posts => v.$set('posts', posts))
+  r.get_hot({limit: 20}).then(p => posts = p).map(renderPost).then(posts => v.$set('posts', posts))
 }
 
 const {ipcRenderer} = require('electron')
