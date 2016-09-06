@@ -111,7 +111,9 @@ ipcRenderer.on('reddit-token', (event, token) => {
 
   r = new snoowrap({
     'user_agent': 'Reddit Desktop',
-    'access_token': token
+    'client_id': 'YKa6s8nWTInbhQ',
+    'client_secret': '',
+    'refresh_token': token
   })
   r.get_me().then(console.log)
 

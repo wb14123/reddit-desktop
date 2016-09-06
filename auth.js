@@ -25,13 +25,13 @@ function requestToken(code, cb) {
     }
   }
   request(opts, function(err, res, body) {
-    console.log(body.access_token)
-    cb(undefined, body.access_token)
+    console.log(body)
+    cb(undefined, body.refresh_token)
   })
 }
 
 function getToken(win, cb) {
-  const authUrl = `${baseUrl}/authorize?client_id=${clientId}&response_type=code&state=RANDOM_STRI&redirect_uri=${redirectUrl}&scope=${scope}`
+  const authUrl = `${baseUrl}/authorize?client_id=${clientId}&response_type=code&state=RANDOM_STRI&redirect_uri=${redirectUrl}&scope=${scope}&duration=permanent`
   console.log(authUrl)
   win.loadURL(authUrl)
 
