@@ -27,14 +27,13 @@
               From: {{ post.url }}
             </div>
             <div class="post-author">
-              <!-- Submmited by <span class="author-name">{{ post.author.name }}</span> at {{new Date(post.created_utc * 1000).toLocaleString()}} -->
+              Submmited by {{ post.author.name }} at {{new Date(post.created_utc * 1000).toLocaleString()}}
             </div>
             <div class="post-buttom">
               <div class="post-ops">
                 <a class="fa fa-thumbs-up" v-bind:class="{'done':post.likes}" href="#" v-on:click="upvotePost($index)"></a>
-                <span class="fa fa-thumbs-down" v-bind:class="{'done':post.likes===false}"></span>
-                <span class="fa fa-bookmark"></span>
-                <span class="fa fa-trash"></span>
+                <a class="fa fa-thumbs-down" v-bind:class="{'done':post.likes===false}" v-on:click="downvotePost($index)"></a>
+                <a class="fa fa-bookmark" v-bind:class="{'done':post.saved}" href="#" v-on:click="savePost($index)"></a>
               </div>
               <div class="post-stats">
                 <span class="fa fa-comment"></span>{{ post.num_comments }}
@@ -59,7 +58,8 @@
           <div class="post-buttom">
             <div class="post-ops">
               <a class="fa fa-thumbs-up {{ comment.likes?'done':'' }}" href="#" v-on:click="upvoteComment(col, $index)"></a>
-              <span class="fa fa-thumbs-down"></span>
+                <a class="fa fa-thumbs-down" v-bind:class="{'done':comment.likes===false}" v-on:click="downvoteComment(col, $index)"></a>
+                <a class="fa fa-bookmark" v-bind:class="{'done':comment.saved}" href="#" v-on:click="saveComment(col, $index)"></a>
             </div>
             <div class="post-stats">
               <span class="fa fa-star"></span>{{ comment.ups }}

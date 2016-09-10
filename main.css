@@ -73,6 +73,10 @@ webview {
   color: gray;
 }
 
+.post-author {
+  color: gray;
+}
+
 .post-buttom {
   display: flex;
   flex-direction: row;

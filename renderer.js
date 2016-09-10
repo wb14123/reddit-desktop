@@ -40,7 +40,8 @@ var v = new Vue({
             body_html: comment.body_html,
             author: {name: comment.author.name},
             ups: comment.ups,
-            likes: comment.likes
+            likes: comment.likes,
+            saved: comment.saved
           }
       })
       this.commentCols.push(renderedComments)
@@ -76,20 +77,35 @@ var v = new Vue({
         this.commentSelectIdx[col] = index
       }
     },
-    upvote: function (obj, renderObj) {
-      if (renderObj.likes) {
-        obj.unvote()
-        renderObj.likes = null
+    op: function(obj, renderObj, doFunc, undoFunc, state, onValue) {
+      if (renderObj[state] === onValue) {
+        obj[undoFunc]()
+        renderObj[state] = null
       } else {
-        obj.upvote()
-        renderObj.likes = true
+        obj[doFunc]()
+        renderObj[state] = onValue
       }
     },
     upvotePost: function (index) {
-      this.upvote(posts[index], this.posts[index])
+      this.op(posts[index], this.posts[index], 'upvote', 'unvote', 'likes', true)
     },
     upvoteComment: function (col, index) {
-      this.upvote(commentCols[col][index], this.commentCols[col][index])
+      this.op(commentCols[col][index], this.commentCols[col][index],
+        'upvote', 'unvote', 'likes', true)
+    },
+    downvotePost: function (index) {
+      this.op(posts[index], this.posts[index], 'downvote', 'unvote', 'likes', false)
+    },
+    downvoteComment: function (col, index) {
+      this.op(commentCols[col][index], this.commentCols[col][index],
+        'downvote', 'unvote', 'likes', false)
+    },
+    savePost: function (index) {
+      this.op(posts[index], this.posts[index], 'save', 'unsave', 'saved', true)
+    },
+    saveComment: function (col, index) {
+      this.op(commentCols[col][index], this.commentCols[col][index],
+        'save', 'unsave', 'saved', true)
     }
   }
 })
@@ -104,7 +120,8 @@ function renderPost(post) {
     created_utc: post.created_utc,
     num_comments: post.num_comments,
     score: post.score,
-    likes: post.likes
+    likes: post.likes,
+    saved: post.saved
   }
 }
 
