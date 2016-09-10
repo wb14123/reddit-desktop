@@ -41,7 +41,8 @@ var v = new Vue({
             author: {name: comment.author.name},
             ups: comment.ups,
             likes: comment.likes,
-            saved: comment.saved
+            saved: comment.saved,
+            created_utc: comment.created_utc
           }
       })
       this.commentCols.push(renderedComments)

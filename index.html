@@ -53,7 +53,7 @@
         <div class="comment-item" v-for="comment in comments">
           <div class="comment-body {{ commentSelectIdx[col]==$index?'selected':'' }}" v-on:click="openComment(col, $index)"> {{{comment.body_html}}} </div>
           <div class="post-author">
-            Submitted by {{comment.author.name}} at {{new Date(post.created_utc * 1000).toLocaleString()}}
+            Submitted by {{comment.author.name}} at {{new Date(comment.created_utc * 1000).toLocaleString()}}
           </div>
           <div class="post-buttom">
             <div class="post-ops">
