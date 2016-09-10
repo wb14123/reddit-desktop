@@ -22,6 +22,7 @@ var v = new Vue({
 		commentCols: [],
     postSelectIdx: -1,
     commentSelectIdx: [],
+    commentText: []
   },
   computed: {
     mainStyle: function () {
@@ -107,6 +108,18 @@ var v = new Vue({
     saveComment: function (col, index) {
       this.op(commentCols[col][index], this.commentCols[col][index],
         'save', 'unsave', 'saved', true)
+    },
+    postComment: function (col) {
+      var post = null
+      if (col == 0) {
+        post = posts[this.postSelectIdx]
+      } else {
+        post = commentCols[col-1][this.commentSelectIdx[col-1]]
+      }
+      post.reply(this.commentText[col]).then(reply => {
+        this.commentText = []
+        this.commentCols[col].push(reply)
+      })
     }
   }
 })

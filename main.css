@@ -117,3 +117,10 @@ webview {
   padding-bottom: 20px;
   width: 100%;
 }
+
+.comment-text {
+  width: 90%;
+  padding: 10px;
+  height: 140px;
+  font-size: 15px;
+}

@@ -50,6 +50,10 @@
         <webview id="web" src="loading.html"></webview>
       </div>
       <div class="col comments" v-for="(col, comments) in commentCols">
+        <div class="comment-item comment-input">
+          <textarea class="comment-text" v-model="commentText[col]"></textarea>
+          <button v-on:click="postComment(col)">Post</button>
+        </div>
         <div class="comment-item" v-for="comment in comments">
           <div class="comment-body {{ commentSelectIdx[col]==$index?'selected':'' }}" v-on:click="openComment(col, $index)"> {{{comment.body_html}}} </div>
           <div class="post-author">
