@@ -31,7 +31,7 @@
             </div>
             <div class="post-buttom">
               <div class="post-ops">
-                <a class="fa fa-thumbs-up" v-bind:class="{'done':post.likes}" href="#" v-on:click="upvote($index)"></a>
+                <a class="fa fa-thumbs-up" v-bind:class="{'done':post.likes}" href="#" v-on:click="upvotePost($index)"></a>
                 <span class="fa fa-thumbs-down" v-bind:class="{'done':post.likes===false}"></span>
                 <span class="fa fa-bookmark"></span>
                 <span class="fa fa-trash"></span>
@@ -58,7 +58,7 @@
           </div>
           <div class="post-buttom">
             <div class="post-ops">
-              <span class="fa fa-thumbs-up"></span>
+              <a class="fa fa-thumbs-up {{ comment.likes?'done':'' }}" href="#" v-on:click="upvoteComment(col, $index)"></a>
               <span class="fa fa-thumbs-down"></span>
             </div>
             <div class="post-stats">

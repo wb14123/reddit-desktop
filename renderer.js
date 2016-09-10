@@ -39,7 +39,8 @@ var v = new Vue({
           return {
             body_html: comment.body_html,
             author: {name: comment.author.name},
-            ups: comment.ups
+            ups: comment.ups,
+            likes: comment.likes
           }
       })
       this.commentCols.push(renderedComments)
@@ -75,14 +76,20 @@ var v = new Vue({
         this.commentSelectIdx[col] = index
       }
     },
-    upvote: function (index) {
-      if (this.posts[index].likes) {
-        posts[index].unvote()
-        this.posts[index].likes = null
+    upvote: function (obj, renderObj) {
+      if (renderObj.likes) {
+        obj.unvote()
+        renderObj.likes = null
       } else {
-        posts[index].upvote()
-        this.posts[index].likes = true
+        obj.upvote()
+        renderObj.likes = true
       }
+    },
+    upvotePost: function (index) {
+      this.upvote(posts[index], this.posts[index])
+    },
+    upvoteComment: function (col, index) {
+      this.upvote(commentCols[col][index], this.commentCols[col][index])
     }
   }
 })
