@@ -32,10 +32,27 @@ a {
   margin: 5px;
 }
 
-#catalog {
-  flex-direction: column;
-  padding: 5px;
+#left-nav {
   width: 26%;
+  flex-direction: column;
+  display: flex;
+  overflow-y: hidden;
+}
+
+#subreddits {
+  width: 100%;
+  background-color: rgb(30, 171, 30);
+  height: 40px;
+  font-size: 25px;
+  flex: 0 0 auto;
+  padding: 10px;
+}
+
+#catalog {
+  padding: 5px;
+  flex: 1 1 auto;
+  position: relative;
+  overflow-y: auto;
 }
 
 #article {

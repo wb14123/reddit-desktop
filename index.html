@@ -9,42 +9,44 @@
   </head>
   <body>
     <div id="main" v-bind:style="mainStyle">
-      <!--<div id="subs" class="col">
-        Subs
-      </div>-->
-      <div id="catalog" class="col">
-        <div class="post-item" v-for="post in posts" v-bind:class="{'selected':$index==postSelectIdx}">
-          <div class="post-main">
-            <div class="post-subscribe-name">
-              /r/{{ post.subreddit.display_name }}
-            </div>
-            <a class="post-title" href="#" v-on:click="openPost($index)">
-              {{ post.title }}
-            </a>
-          </div>
-          <div class="post-annotation">
-            <div class="post-url">
-              From: {{ post.url }}
-            </div>
-            <div class="post-author">
-              Submmited by {{ post.author.name }} at {{new Date(post.created_utc * 1000).toLocaleString()}}
-            </div>
-            <div class="post-buttom">
-              <div class="post-ops">
-                <a class="fa fa-thumbs-up" v-bind:class="{'done':post.likes}" href="#" v-on:click="upvotePost($index)"></a>
-                <a class="fa fa-thumbs-down" v-bind:class="{'done':post.likes===false}" v-on:click="downvotePost($index)"></a>
-                <a class="fa fa-bookmark" v-bind:class="{'done':post.saved}" href="#" v-on:click="savePost($index)"></a>
-              </div>
-              <div class="post-stats">
-                <span class="fa fa-comment"></span>{{ post.num_comments }}
-                <span class="fa fa-star"></span>{{ post.score }}
-              </div>
-            </div>
-          </div>
+      <div id="left-nav" class="col">
+        <div id="subreddits">
+          >> HOT
         </div>
-        <a class="post-item" v-on:click="loadMorePost()" href="#">
-          <div class="post-title"> Load More </div>
-        </a>
+        <div id="catalog">
+          <div class="post-item" v-for="post in posts" v-bind:class="{'selected':$index==postSelectIdx}">
+            <div class="post-main">
+              <div class="post-subscribe-name">
+                /r/{{ post.subreddit.display_name }}
+              </div>
+              <a class="post-title" href="#" v-on:click="openPost($index)">
+                {{ post.title }}
+              </a>
+            </div>
+            <div class="post-annotation">
+              <div class="post-url">
+                From: {{ post.url }}
+              </div>
+              <div class="post-author">
+                Submmited by {{ post.author.name }} at {{new Date(post.created_utc * 1000).toLocaleString()}}
+              </div>
+              <div class="post-buttom">
+                <div class="post-ops">
+                  <a class="fa fa-thumbs-up" v-bind:class="{'done':post.likes}" href="#" v-on:click="upvotePost($index)"></a>
+                  <a class="fa fa-thumbs-down" v-bind:class="{'done':post.likes===false}" v-on:click="downvotePost($index)"></a>
+                  <a class="fa fa-bookmark" v-bind:class="{'done':post.saved}" href="#" v-on:click="savePost($index)"></a>
+                </div>
+                <div class="post-stats">
+                  <span class="fa fa-comment"></span>{{ post.num_comments }}
+                  <span class="fa fa-star"></span>{{ post.score }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <a class="post-item" v-on:click="loadMorePost()" href="#">
+            <div class="post-title"> Load More </div>
+          </a>
+        </div>
       </div>
       <div id="article" class="col" v-bind:class="{'webview-hidden':hidePost}">
         <webview id="web" src="loading.html"></webview>
