@@ -11,7 +11,7 @@
     <div id="main" v-bind:style="mainStyle">
       <div id="left-nav" class="col">
         <div id="subreddits">
-          >> HOT
+          {{ subreddits[subredditsSelectIdx].url }}
         </div>
         <div id="catalog">
           <div class="post-item" v-for="post in posts" v-bind:class="{'selected':$index==postSelectIdx}">
@@ -77,7 +77,7 @@
   </body>
 
   <script>
-    var {commentCols, posts, v, r} = require('./renderer.js')
+    var {v, r} = require('./renderer.js')
   </script>
 
 </html>

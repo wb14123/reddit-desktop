@@ -11,12 +11,15 @@ webview.addEventListener('dom-ready', () => {
 */
 
 var r = null
+var subreddits = []
 var posts = []
 var commentCols = []
 
 var v = new Vue({
   el: '#main',
   data: {
+    subreddits: [],
+    subredditsSelectIdx: 0,
     posts: [],
     hidePost: true,
 		commentCols: [],
@@ -125,6 +128,18 @@ var v = new Vue({
 })
 
 
+function renderSubreddit(sub) {
+  console.log(sub)
+  return {
+    title: sub.title,
+    url: sub.url,
+    display_name: sub.display_name,
+    description: sub.description,
+    subscribers: sub.subscribers
+  }
+}
+
+
 function renderPost(post) {
   return {
     title: post.title,
@@ -143,6 +158,11 @@ function renderList(r) {
   r.get_hot({limit: 20}).then(p => posts = p).map(renderPost).then(posts => v.$set('posts', posts))
 }
 
+
+function getSubreddits(r) {
+  r.getSubscriptions().then(s => subreddits = s).map(renderSubreddit).then(s => v.$set('subreddits', s))
+}
+
 const {ipcRenderer} = require('electron')
 ipcRenderer.on('reddit-token', (event, token) => {
   console.log(token)
@@ -155,10 +175,10 @@ ipcRenderer.on('reddit-token', (event, token) => {
   })
   r.get_me().then(console.log)
 
+  getSubreddits(r)
   renderList(r)
 })
 
-module.exports.commentCols = commentCols
-module.exports.posts = posts
+
 module.exports.v = v
 module.exports.r = r
