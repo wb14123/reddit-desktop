@@ -30,7 +30,6 @@ function createWindow () {
   // mainWindow.loadURL("view://index.html")
   // mainWindow.loadURL("view://reddit_redirect.html")
 
-  mainWindow.webContents.openDevTools()
 
   mainWindow.on('closed', function () {
     mainWindow = null
