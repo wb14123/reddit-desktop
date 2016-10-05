@@ -10,8 +10,16 @@
   <body>
     <div id="main" v-bind:style="mainStyle">
       <div id="left-nav" class="col">
-        <div id="subreddits">
-          {{ subreddits[subredditsSelectIdx].url }}
+        <div id="subreddits" v-if="selectingSubreddits">
+          System Channels:
+          <div class="subreddit"><a href="#" v-on:click="selectSubreddit('Hot', undefined)">Hot</a></div>
+          Your Subscriptions:
+          <div v-for="sub in subreddits" class="subreddit">
+            <a href="#" v-on:click="selectSubreddit(sub.display_name, sub.display_name)">{{ sub.display_name }}</a>
+          </div>
+        </div>
+        <div id="subreddits" v-else>
+          <a href="#" v-on:click="selectSubreddits()">{{ selectedSubredditName }}</a>
         </div>
         <div id="catalog">
           <div class="post-item" v-for="post in posts" v-bind:class="{'selected':$index==postSelectIdx}">

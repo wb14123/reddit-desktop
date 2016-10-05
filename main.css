@@ -42,10 +42,13 @@ a {
 #subreddits {
   width: 100%;
   background-color: rgb(30, 171, 30);
-  height: 40px;
   font-size: 25px;
   flex: 0 0 auto;
   padding: 10px;
+}
+
+.subreddit {
+  margin: 15px 15px 15px 15px;
 }
 
 #catalog {

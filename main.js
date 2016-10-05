@@ -19,6 +19,7 @@ function createWindow () {
   registerProtocol()
 
   mainWindow = new BrowserWindow()
+  mainWindow.maximize()
   getToken(mainWindow, function (err, token) {
     mainWindow.loadURL(`file://${__dirname}/index.html`)
     mainWindow.webContents.on('did-finish-load', () => {

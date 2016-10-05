@@ -19,7 +19,8 @@ var v = new Vue({
   el: '#main',
   data: {
     subreddits: [],
-    subredditsSelectIdx: 0,
+    selectedSubredditName: "Hot",
+    selectingSubreddits: false,
     posts: [],
     hidePost: true,
 		commentCols: [],
@@ -123,14 +124,23 @@ var v = new Vue({
         this.commentText = []
         this.commentCols[col].push(reply)
       })
+    },
+    selectSubreddits: function () {
+      this.selectingSubreddits = true
+    },
+    selectSubreddit: function(displayName, realName) {
+      renderList(r, realName)
+      this.selectingSubreddits = false
+      this.selectedSubredditName = displayName
     }
   }
 })
 
 
 function renderSubreddit(sub) {
-  console.log(sub)
   return {
+    name: sub.name,
+    display_name: sub.display_name,
     title: sub.title,
     url: sub.url,
     display_name: sub.display_name,
@@ -154,8 +164,8 @@ function renderPost(post) {
   }
 }
 
-function renderList(r) {
-  r.get_hot({limit: 20}).then(p => posts = p).map(renderPost).then(posts => v.$set('posts', posts))
+function renderList(r, subreddit = undefined) {
+  r.get_hot(subreddit, {limit: 20}).then(p => posts = p).map(renderPost).then(posts => v.$set('posts', posts))
 }
 
 
@@ -173,12 +183,11 @@ ipcRenderer.on('reddit-token', (event, token) => {
     'client_secret': '',
     'refresh_token': token
   })
-  r.get_me().then(console.log)
 
   getSubreddits(r)
   renderList(r)
 })
 
 
-module.exports.v = v
+eodule.exports.v = v
 module.exports.r = r
