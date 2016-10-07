@@ -129,6 +129,7 @@ var v = new Vue({
       this.selectingSubreddits = true
     },
     selectSubreddit: function(displayName, realName) {
+      this.openPost(this.postSelectIdx)
       renderList(r, realName)
       this.selectingSubreddits = false
       this.selectedSubredditName = displayName
