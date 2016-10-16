@@ -10,6 +10,15 @@ This software is currently usable but in a very early stage and it is one of my 
 Screen Shot
 ---------------------
 
+Click the image below to see the video.
+
+[![screen shot](https://img.youtube.com/vi/4PmlsevYCT4/0.jpg)](https://www.youtube.com/watch?v=4PmlsevYCT4)
+
+
+Downloads
+--------------------
+
+You can download this software at [the release page](https://github.com/wb14123/reddit-desktop/releases).
 
 
 Features
