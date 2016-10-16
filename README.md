@@ -44,3 +44,11 @@ Implement important missing features:
 * Subscribe/unsubscribe subreddits.
 
 The structure of this three column view may also used on other websites that depends on external link such as Hacker News.
+
+
+Contribute
+------------------
+
+This project is written with [Electron](http://electron.atom.io/), [Vue.js](vuejs.org) and [Snoowrap](https://github.com/not-an-aardvark/snoowrap).
+
+In order to run it with source, just download the project and run `npm install && npm start`.
